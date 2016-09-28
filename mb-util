@@ -14,8 +14,6 @@ from mbutil import mbtiles_to_disk, disk_to_mbtiles, mbtiles_metadata_to_disk
 
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.DEBUG)
-
     parser = OptionParser(usage="""usage: %prog [options] input output
     
     Examples:
@@ -47,6 +45,11 @@ if __name__ == '__main__':
         help='''Option to control JSONP callback for UTFGrid tiles. If grids are not '''
         + '''used as JSONP, you can remove callbacks specifying --grid_callback="" ''',
         default='grid')
+        
+    parser.add_option('--log_level', dest='loglevel',
+        help='''Specify the minimum log level to display, either DEBUG, INFO or WARNING''',
+        choices=['DEBUG', 'INFO', 'WARNING'],
+        default='INFO')
 
     (options, args) = parser.parse_args()
 
@@ -54,6 +57,15 @@ if __name__ == '__main__':
     if len(args) != 2:
         parser.print_help()
         sys.exit(1)
+        
+    # Set the logging level
+    loglevel = options.__dict__.get('loglevel')
+    if loglevel == 'DEBUG':
+        logging.basicConfig(level=logging.DEBUG)
+    elif loglevel == 'WARNING':
+        logging.basicConfig(level=logging.WARNING)
+    else:
+        logging.basicConfig(level=logging.INFO)
 
     if os.path.isfile(args[0]) and os.path.exists(args[1]):
         sys.stderr.write('To export MBTiles to disk, specify a directory that does not yet exist\n')

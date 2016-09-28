@@ -257,7 +257,7 @@ def mbtiles_to_disk(mbtiles_file, directory_path, **kwargs):
         y = t[2]
         if kwargs.get('scheme') == 'xyz':
             y = flip_y(z,y)
-            print('flipping')
+            logger.debug('flipping')
             tile_dir = os.path.join(base_path, str(z), str(x))
         elif kwargs.get('scheme') == 'wms':
             tile_dir = os.path.join(base_path,

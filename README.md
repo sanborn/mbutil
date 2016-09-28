@@ -58,6 +58,8 @@ Python installation (requires easy_install)
                             Option to control JSONP callback for UTFGrid tiles. If
                             grids are not used as JSONP, you can remove callbacks
                             specifying --grid_callback=""
+      --log_level=LEVEL
+                            The minimum log level to report, either DEBUG, INFO or WARNING. 
 
 
     Export an `mbtiles` file to files on the filesystem:
